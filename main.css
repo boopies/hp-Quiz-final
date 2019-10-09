@@ -1,268 +1,187 @@
 * {
-    box-sizing: border-box;
     font-family: sans-serif;
+    color: white;
   }
 
-body {
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-}
+  body{
+      background-color: black;
+  }
 
-  header {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(8, 255, 234);
+header{
+    background-color: aliceblue;
+    display:block;
+    text-align: center;
+    padding-top: 10px;
     height: 150px;
     width: 100%;
-    line-height: 150px;
-    vertical-align: center;
-  }
+    margin-bottom: 20px;
+ }
 
-.heading_img {
-      height: 150px;
-  }
-
-h2 {
-    text-align: center;
-    font-size: 30px;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 650px;
-    background-color: black;
-  }
-  
-.js-quiz-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    }
-  }
-
-  input {
-      font-size: 25px;
-      margin-left: 25px;
-  }
-
-.welcome {
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+ .heading_img{
     height: 100%;
-    width: 100%;
 }
 
-.viewable{
-    margin-top: 50px;
+.viewable, .js-quiz-form, .yayCorrect, .noWrong, .js-reset, .youWin, .youLoose{
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.startimage{
     justify-content: center;
-    align-items: center;
 }
 
-#hp-question{
-    font-size: 30px;
-    padding-bottom: 20px;
-    width: 100%;
+main{
+    margin-bottom: 20px;
 }
 
-.spellcast {
-    display: flex;
-    width: 100%;
-}    
-
-.textWelcome{
-    align-self: center;
+ul{
+    margin-left: -40px;
     text-align: center;
-    vertical-align: center;
-    color: white;
-    font-size: 30px;
-    width: 100%;
 }
 
-button {
-    margin-top: 30px;
-    font-size: 15px;
-    width: 200px;
-    border-radius: 5%;
-    height: 50px;
+.curscore{
+    margin-left: 30px;
 }
 
-.opt {
-    font-size: 25px;
-}
-
-.startQuiz {
-    margin-bottom: 10px;
-    align-self: center;
-    font-size: 30px;
-    border: 3px solid black;
-    font-weight: bolder;
+button, .nextButton, .resetButton{
     background-color: yellow;
-    height: 75px;
-}
-.startQuiz:hover{
-    background-color: white;
-}
+    color: black;
+    font-size: 35px;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 35%;
+  }
 
-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
+button:hover{
+      background-color: white;
+  }
 
-label {
-    color: white;
+.hp-question{
     text-align: center;
-    font-size: 50px;
-}
-
-.answerBut {
-    margin-bottom: 10px;
-    align-self: center;
-    font-size: 30px;
-    border: 3px solid black;
-    font-weight: bolder;
-    background-color: yellow;
-    height: 75px;
-}
-.answerBut:hover{
-    background-color: white;
-}
-
-
-.yayCorrect, .noWrong, .youLoose, .youWin, .battle{
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
     width: 100%;
-}
-
-.correctAnswer, .wrongAnswer, .youLoose, .youWin{
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    font-size: 40px;
 }
 
 .yourScore{
-    text-align: center;
-    margin-top: -15px;
-    color:white;
-    font-size: 20px;
-}
-
-
-.looseText{
-    text-align: center;
-    margin-top: -15px;
-    color:white;
     font-size: 30px;
 }
 
-.nextButton, .resetButton {
-    margin-bottom: 50px;
-    align-self: center;
-    font-size: 30px;
-    border: 3px solid black;
-    font-weight: bolder;
-    background-color: yellow;
-    height: 75px;
-}
-.nextButton:hover{
-    background-color: white;
+.js-rest>.yourScoreFinal{
+    font-size: 60px;
 }
 
-.resetButton:hover{
-    background-color: white;
+.textWelcome{
+    font-size: 60px;
 }
 
-.js-QuestionAndScore{
-    height: 50px;
-    font-size: 20px;
-    color:white;
+.right-answer {
+    font-size: 50px;
+}
+
+.hp-options{
+    font-size: 35px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.textWelcome, .looseText{
     text-align: center;
-    width: 50%;
+    font-size: 50px;
+    }
+
+.yourScore{
+    text-align: center;
+    font-size: 25px;
+    margin-top: -5px;
+    }
+
+.yourScoreFinal{
+    font-size: 35px;
+    margin-bottom: -25px;
 }
 
-.qands{
-    margin-top: auto;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-li {
-    list-style: none;
-    width: 50%;
-}
-
-.js-reset {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.spellcast, .wrongAnswer, .correctAnswer, .beatTR, .defeatedByLV, .wandBattle{
+    width: 100%;
 }
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: lightgray;
-    width: 100%;
-    height: 50px;
-    font-size: 20px;
-  }
+    margin-top: 50px;
+    font-size: 12px;
+    text-align: center;
+}
 
 @media (max-width: 600px) {
 
-    .hp-options{
-        margin-left: auto;
-        margin-right: auto;
-    }
 
-    .qands{
-        margin-top: auto;
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    button, .nextButton, .resetButton{
         width: 100%;
-        margin-bottom: 20px;
-    }
-    
-    li {
-        width: 100%;
-        text-align: center;
-    }
-
-    button {
-        width: 100%;
+        font-size: 25px;
         border-radius: 0%;}
 
     header {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(8, 255, 234);
-        height: 150px;
+        display:block;
+        text-align: center;
+        padding-top: 10px;
+        background-color: aliceblue;
+        height: 100px;
         width: 100%;
+        margin-bottom: 20px;
      }
-    #hp-question{
-        font-size: 30px;
-        width: 75%;
+
+     ul{
+        margin-left: -40px;
+        text-align: center;
     }
+
+    .qands{
+        font-size: 20px;
+    }
+
+    .textWelcome, .yourScore, .looseText, .yourScoreFinal{
+    text-align: center;
+    font-size: 30px;
+    }
+
+    .heading_img{
+        height: 90%;
+    }
+
+    .wandBattle{
+        width: 100%;
+    }
+
+    label.hp-question{
+        display: block;
+        width:100%;
+        font-size: 40px;
+        text-align: center;
+    }
+
+    .hp-options{
+        font-size: 35px;
+        margin-left: 10px;
+        margin-top: 15px;
+        margin-bottom: 30px;
+    }
+
+    .yourScore{
+        text-align: center;
+    }
+
+    .nextButton, .resetButton{
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 600px){
+
+    li {
+        list-style: none;
+        display: inline-block;
+        font-size: 25px;
+    }
+
 }

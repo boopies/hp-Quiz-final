@@ -108,60 +108,28 @@ const STORE = [
         ],
     correctAnswer: 'Episkey'
     },
+    {question: 'Which spell destroys your memories?',
+    options: [
+        'Riddikulus',
+        'Alohomora',
+        'Expecto Patronum',
+        'Obliviate'
+        ],
+    correctAnswer: 'Obliviate'
+    }, 
 ]
 
 //variables required
 let currentScore = 0;
-let currentScoreOut = 0;
+let scoreOutOf = 0;
 let currentQuestion = 0;
-let questionCurrent = currentQuestion + 1;
-
-//update Score
-function updateScore() {
-    currentScore++;
-    $('.jsscore').text(currentScore);
-  }
-
-//update the question number
-function updateQuestionScoreOut() {
-    currentScoreOut++;
-    $('.js-current-question').text(currentScoreOut);
-    $('.js-big-score').text(currentScoreOut);
-  }
-
-//update the out of number
-  function updateQuestionCurrent() {
-    questionCurrent++;
-    $('.jscquestion').text(questionCurrent);
-  }
-
-  function updateCurrentQuestion(){
-    currentQuestion++
-  }
-
-//generates the list for Score and Questions
-function generateQuestAndScoreList(){
-    return `<ul class="qands">` + 
-    `<li>Question ` +
-    `<span class="jscquestion">`+
-    questionCurrent + `</span> / ${STORE.length} </li>` +
-    `<li>Score is <span class="jsscore">`+ currentScore +`</span>`+
-    ` /<span class="js-big-score">` + currentScoreOut + `</span>`+
-    `</li>`+
-    `</ul>`;
-}
-
-  //shows Question and Score in DOM
-  function showQuestionandScore(){
-    const QuestAndScoreString = generateQuestAndScoreList();
-    $('.js-QuestionAndScore').html(QuestAndScoreString);
-  }
+let questionMarker = 1;
 
 //This creates the first question on the page
 function pullQuestion(){
     $('.js-quiz-form').append(`
-        <div class="battle"> <img src="images/choose_answer.gif" alt="Choose Your Answer"> </div>
-        <label id="hp-question">${STORE[currentQuestion].question}</label>
+        <div class="battle"> <img class="wandBattle" src="images/choose_answer.gif" alt="Choose Your Answer"> </div>
+        <label class="hp-question">${STORE[currentQuestion].question}</label>
         <div class="hp-options">
         </div>`);
     let questionNow = STORE[currentQuestion];
@@ -173,8 +141,10 @@ function pullQuestion(){
     $('.js-quiz-form').append(`<button class="answerBut" type="submit">Submit</button>`);
 }
 
+
 //starts the quiz
 function startQuiz() {
+    $('.jsaquestion').text(STORE.length);
     $('.js-QuestionAndScore').hide();
     $('.js-questions').hide();
     $('js-response').hide();
@@ -183,55 +153,48 @@ function startQuiz() {
     $('.start_page').hide();
     $('.js-QuestionAndScore').show();
     $('.js-questions').show();
-    showQuestionandScore();
     pullQuestion();
     });
   }
 
-
-function checkQuestions() {
-    if (currentQuestion < STORE.length) {
-      return pullQuestion();
-    } else {
-      $('.js-response').hide();
-      $('.s-reset').show();
-      endPage();
-    }
+  //update Score
+function updateScore() {
+    currentScore++;
+    $('.jsscore').text(currentScore);
   }
 
-//changes questions on the quiz
-function changeQuestions(){
-    $('.js-response').on('click', '.nextButton', function(event) {
-        event.preventDefault();
-        updateCurrentQuestion();
-        $('.js-quiz-form').empty();
-        checkQuestions() 
-        $('.js-response').hide();
-        $('.js-questions').show();
-        updateQuestionCurrent();
-    });
-}
+//update the question number
+function updateScoreOutOf() {
+    scoreOutOf++;
+    $('.js-current-question').text(scoreOutOf);
+    $('.js-big-score').text(scoreOutOf);
+  }
 
-function correctAnswer(){
+  //Loads correct Answer Screen
+  function correctAnswer(){
     $('.js-response').append(`<div class="yayCorrect">
-    <div class="correctImg"><img class="correctAnswer" src="images/Correct_Answer.gif" alt="You got Voldemort"></div>
-    <p class="textWelcome">Correct! <br> You dealt a mighty blow.</p>
-    <p class="yourScore"> Your Score is <span class="js-big-score">`+ currentScore +`</span>`+
-    ` out of <span class="js-big-score">` + currentScoreOut + `</span></p>`+
-    `<button type="submit" class="nextButton">Next</button>
+    <div class="correctImg"><img class="correctAnswer" src="images/Correct_Answer.gif" alt="You hit Voldemort"></div>
+    <p class="textWelcome">Correct!<br/> 
+    You dealt a mighty blow.</p>
+    <p class="yourScore"> Your Score is <span class="js-big-score"> ${currentScore} </span>out of <span class="js-big-score">
+    ${scoreOutOf}</span></p>
+    <button type="button" class="nextButton">Next</button>
     </div>`);
 }
 
+//Loads wrong Answer Screen
 function wrongAnswer(){
     $('.js-response').append(`
     <div class="noWrong">
-    <div class="wrongImg"><img class="wrongAnswer" src="images/Wrong_Answer.gif" alt="Voldemort got you"></div>
-    <p class="textWelcome">Incorrect! <br> He got you good.</p>
-    <p class="yourScore"> Your Score is <span class="js-big-score">`+ currentScore +`</span>`+
-    ` out of <span class="js-big-score">` + currentScoreOut + `</span></p>
-    <button type="submit" class="nextButton"> Next</button>
+    <div class="wrongImg"><img class="wrongAnswer" src="images/Wrong_Answer.gif" alt="Voldemort hit you"></div>
+    <p class="textWelcome">Incorrect!<br/> 
+    The correct answer was: <br/> <span class="right-answer">${STORE[currentQuestion].correctAnswer}</span></p>
+    <p class="yourScore"> Your Score is <span class="js-big-score"> ${currentScore} </span>
+    out of <span class="js-big-score"> ${scoreOutOf} </span></p>
+    <button type="button" class="nextButton">Next</button>
     </div>`);
 }
+
 
 //answering questions on the quiz
 function answerQuestions(){
@@ -240,55 +203,92 @@ function answerQuestions(){
         $('.js-questions').hide();
         $('.js-response').show();
         let selected = $("input[name=options]:checked")
-        let answer = selected.val();
-        let checked = STORE[currentQuestion].correctAnswer;
-        if (answer === checked) {
+        let yourAnswer = selected.val();
+        let correctCheck = STORE[currentQuestion].correctAnswer;
+        if (yourAnswer === correctCheck) {
             $('.js-response').empty();
             updateScore();
-            updateQuestionScoreOut();
+            updateScoreOutOf();
             correctAnswer();
         } else {
             $('.js-response').empty();
-            updateQuestionScoreOut();
+            updateScoreOutOf();
             wrongAnswer();
       }
     });
 }
 
+//update the out of number
+  function updateQuestionMarker() {
+    questionMarker++;
+    $('.jscquestion').text(questionMarker);
+  }
+
+  //update the current question
+  function updateCurrentQuestion(){
+    currentQuestion++
+  }
+
+function checkQuestions() {
+    if (currentQuestion < STORE.length) {
+    $('.js-quiz-form').empty();
+    $('.js-response').hide();
+    $('.js-questions').show();
+      pullQuestion();
+    } else {
+      $('.js-response').hide();
+      $('.js-reset').show();
+      endPage();
+    }
+  }
+
+//changes questions on the quiz
+function nextQuestions(){
+    $('.js-response').on('click', '.nextButton', function(event) {
+        event.preventDefault();
+        updateCurrentQuestion();
+        updateQuestionMarker();
+        $('.js-quiz-form').empty();
+        checkQuestions() 
+    });
+}
+
+
 
 //final Score Screen
 function endPage(){
+    $('.js-QuestionAndScore').hide();
     if (currentScore >= 6) { $('.js-reset').append(`<div class="youWin">
-    <div class="wonImg"><img class="beatTR" src="images/you_pass.gif" alt="You defeted Tom Riddle"></div>
-    <p class="yourScore"> Your Final Score is <span class="js-big-score">`+ currentScore +`</span>`+
-    ` out of <span class="js-big-score">` + currentScoreOut + `</span></p>
-    <p class="looseText">You defeated Tom Riddle!</p>
-    <button type="submit" class="resetButton">Reset</button>
-    </div>`
-    );}
-    else {
+        <div class="wonImg"><img class="beatTR" src="images/you_pass.gif" alt="You defeted Tom Riddle"></div>
+        <p class="yourScoreFinal"> Your Final Score is <span class="js-big-score"> ${currentScore} </span>
+        out of <span class="js-big-score"> ${scoreOutOf} </span></p>
+        <p class="looseText">You defeated Tom Riddle!</p>
+        <button type="button" class="resetButton">Try Again</button>
+        </div>`
+    );} else {
         $('.js-reset').append(`<div class="youLoose">
         <div class="defeatedImg"><img class="defeatedByLV" src="images/Fail_Quiz.gif" alt="Voldemort got you"></div>
-        <p class="yourScore"> Your Final Score is <span class="js-big-score">`+ currentScore +`</span>`+
-        ` out of <span class="js-big-score">` + currentScoreOut + `</span></p>
+        <p class="yourScoreFinal"> Your Final Score is <span class="js-big-score"> ${currentScore} </span>
+        out of <span class="js-big-score"> ${scoreOutOf} </span></p>
         <p class="looseText">You were defeated by Lord Voldemort.</p>
-        <button type="submit" class="resetButton">Reset</button>
+        <button type="button" class="resetButton">Try Again</button>
         </div>`
     );} 
 }
 
 //Reset Stats
 function resetStats(){
-    questionCurrent = 1;
     currentScore = 0;
-    currentScoreOut = 0;
+    scoreOutOf = 0;
     currentQuestion = 0;
+    questionMarker = 1;
+    $('.jsscore').text(currentScore);
+    $('.jscquestion').text(questionMarker);
 }
 
 //restarts quiz
 function restartQuiz(){
-    $('.js-reset').on('click', '.resetButton', function(event) {
-        event.preventDefault();
+    $('.js-reset').on('click', '.resetButton', function() {
         resetStats();
         $('.js-QuestionAndScore').hide();
         $('.js-questions').hide();
@@ -303,8 +303,8 @@ function restartQuiz(){
 
 function activateQuizApp() {
     startQuiz();
-    changeQuestions();
     answerQuestions();
+    nextQuestions();
     restartQuiz();
   }
   

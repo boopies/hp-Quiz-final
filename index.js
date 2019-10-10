@@ -135,9 +135,9 @@ function pullQuestion(){
     let questionNow = STORE[currentQuestion];
     for(let i=0; i<questionNow.options.length; i++){
       $('.hp-options').append(`
-          <input type ="radio" name="options" id="option${i+1}" value= "${questionNow.options[i]}" tabindex ="${i+1}" required> 
+          <input type ="radio" name="options" id="option${i+1}" value= "${questionNow.options[i]}" required> 
           <label for="option${i+1}" class="opt"> ${questionNow.options[i]}</label> <br/>
-          <span id="js-r${i+1}"></span>`);};
+        `);};
     $('.js-quiz-form').append(`<button class="answerBut" type="submit">Submit</button>`);
 }
 
